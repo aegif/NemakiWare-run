@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  nemaki-couchdb:
+    image: aegif/nemakibuild
+    volumes:
+      - ../war-files:/share
+    command: /home/scripts/setup.sh
