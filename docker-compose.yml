@@ -14,7 +14,7 @@ services:
   nemaki-ui:
     image: tomcat:9.0-jre8-alpine
     volumes:
-      - ./../../../ui/target/ui.war:/usr/local/tomcat/webapps/ui.war
+      - ./war-files/ui.war:/usr/local/tomcat/webapps/ui.war
       - ./nemaki-ui/classes:/usr/local/tomcat/shared/classes
       - ./tomcat/bin/setenv.bat:/usr/local/tomcat/bin/setenv.bat
       - ./tomcat/bin/setenv.sh:/usr/local/tomcat/bin/setenv.sh
@@ -24,7 +24,7 @@ services:
   nemaki-core:
     image: tomcat:9.0-jre8-alpine
     volumes:
-      - ./../../../core/target/core.war:/usr/local/tomcat/webapps/core.war
+      - ./war-files/core.war:/usr/local/tomcat/webapps/core.war
       - ./nemaki-core/classes:/usr/local/tomcat/shared/classes
       - ./tomcat/bin/setenv.bat:/usr/local/tomcat/bin/setenv.bat
       - ./tomcat/bin/setenv.sh:/usr/local/tomcat/bin/setenv.sh
@@ -34,7 +34,7 @@ services:
   nemaki-solr:
     image: tomcat:9.0-jre8-alpine
     volumes:
-      - ./../../../solr/target/solr.war:/usr/local/tomcat/webapps/solr.war
+      - ./war-files/solr.war:/usr/local/tomcat/webapps/solr.war
       - ./nemaki-solr/classes:/usr/local/tomcat/shared/classes
       - ./tomcat/bin/setenv.bat:/usr/local/tomcat/bin/setenv.bat
       - ./tomcat/bin/setenv.sh:/usr/local/tomcat/bin/setenv.sh
