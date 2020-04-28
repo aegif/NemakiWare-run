@@ -2,41 +2,49 @@ version: '3'
 
 services:
   nemaki-couchdb:
-    image: aegif/nemakicouch
+    image: couchdb:latest
     ports:
       - 5984:5984
     environment:
       - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=password
     volumes:
-      - ./nemaki-couchdb/local.ini:/opt/couchdb/etc/local.ini
+      - ./nemaki-couchdb/data
+    #   - ./nemaki-couchdb/compose.ini:/opt/couchdb/etc/compose.ini
+    tty: yes
   nemaki-ui:
-    image: tomcat:9.0-jre8-alpine
+    # image: kirillf/centos-tomcat:latest
+    build: ./centos-tomcat9
     volumes:
-      - ../war-files/ui.war:/usr/local/tomcat/webapps/ui.war
-      - ./nemaki-ui/classes:/usr/local/tomcat/shared/classes
-      - ./tomcat/bin/setenv.bat:/usr/local/tomcat/bin/setenv.bat
-      - ./tomcat/bin/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+      - ../war-files/ui.war:/opt/tomcat/webapps/ui.war
+      - ./nemaki-ui/classes:/opt/tomcat/shared/classes
+      - ./tomcat/bin/setenv.bat:/opt/tomcat/bin/setenv.bat
+      - ./tomcat/bin/setenv.sh:/opt/tomcat/bin/setenv.sh
     ports:
       - 8080:8080
+    tty: yes
 
   nemaki-core:
-    image: tomcat:9.0-jre8-alpine
+    # image: kirillf/centos-tomcat:latest
+    build: ./centos-tomcat9
     volumes:
-      - ../war-files/core.war:/usr/local/tomcat/webapps/core.war
-      - ./nemaki-core/classes:/usr/local/tomcat/shared/classes
-      - ./tomcat/bin/setenv.bat:/usr/local/tomcat/bin/setenv.bat
-      - ./tomcat/bin/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+      - ../war-files/core.war:/opt/tomcat/webapps/core.war
+      - ./nemaki-core/classes:/opt/tomcat/shared/classes
+      - ./tomcat/bin/setenv.bat:/opt/tomcat/bin/setenv.bat
+      - ./tomcat/bin/setenv.sh:/opt/tomcat/bin/setenv.sh
     ports:
       - 8081:8080
+    tty: yes
       
   nemaki-solr:
-    image: tomcat:9.0-jre8-alpine
+    # image: kirillf/centos-tomcat:latest
+    build: ./centos-tomcat9
     volumes:
-      - ../war-files/solr.war:/usr/local/tomcat/webapps/solr.war
-      - ./nemaki-solr/classes:/usr/local/tomcat/shared/classes
-      - ./tomcat/bin/setenv.bat:/usr/local/tomcat/bin/setenv.bat
-      - ./tomcat/bin/setenv.sh:/usr/local/tomcat/bin/setenv.sh
-      - ./tomcat/conf/Catalina:/usr/local/tomcat/conf/Catalina
+      - ../war-files/solr.war:/opt/tomcat/webapps/solr.war
+      - ./nemaki-solr/classes:/opt/tomcat/shared/classes
+      - ./tomcat/bin/setenv.bat:/opt/tomcat/bin/setenv.bat
+      - ./tomcat/bin/setenv.sh:/opt/tomcat/bin/setenv.sh
+      - ./tomcat/conf/Catalina:/opt/tomcat/conf/Catalina
     ports:
       - 8082:8080
+    tty: yes
